@@ -12,7 +12,9 @@ class ResultsScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final Map<String, int> score = game.score;
+    Map<String, int> score = game.score;
+
+    score = score.map((String key, int value) => MapEntry<String, int>(game.players[key], value));
 
     final List<String> sortedPlayers = score.keys.toList(growable:false)
       ..sort((String k1, String k2) => score[k2].compareTo(score[k1]));
