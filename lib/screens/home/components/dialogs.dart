@@ -24,10 +24,11 @@ void showErrorDialog(BuildContext context, String text){
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-          content: Row(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Icon(Icons.warning, color: Colors.amber),
-              Container(margin: const EdgeInsets.only(left: 7), child: Text(text)),
+              const Icon(Icons.warning, color: Colors.amber, size: 40.0,),
+              Container(margin: const EdgeInsets.only(top: 12), child: Text(text)),
             ],
           ),
           actions: <Widget>[

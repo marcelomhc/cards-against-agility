@@ -66,25 +66,23 @@ class ResultsScreen extends StatelessWidget {
   }
 
   void resetGame(BuildContext context) {
-    GameRepository().getDocument(game.id).then((Map<String, dynamic> map) {
-      GameTable newGame = GameTable.fromMap(map);
-      newGame = doReset(context, newGame);
-      GameRepository().updateDocument(newGame);
-      Navigator.of(context).pushReplacementNamed('/lobby', arguments: newGame);
-    });
+    GameRepository().getDocument(game.id)
+        .then((Map<String, dynamic> map) => doReset(context, GameTable.fromMap(map)));
   }
 
-  GameTable doReset(BuildContext context, GameTable newGame) {
+  void doReset(BuildContext context, GameTable newGame) {
     if(newGame.started()) {
+      Navigator.of(context).pushReplacementNamed('/');
       showErrorDialog(context, 'Game is already in progress!');
-    }
+    } else {
+      if (newGame.finished()) {
+        newGame.resetGame(Player().id);
+      }
 
-    if(!newGame.waitingPlayers()) {
-      newGame.resetGame(Player().id);
+      newGame.addPlayer(Player());
+      GameRepository().updateDocument(newGame);
+      Navigator.of(context).pushReplacementNamed('/lobby', arguments: newGame);
     }
-
-    newGame.addPlayer(Player());
-    return newGame;
   }
 
   String playerList(List<String> sortedPlayers, Map<String, int> score) {
