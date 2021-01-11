@@ -20,6 +20,8 @@ Please use the [issue tracker](https://github.com/marcelomhc/cards-against-agili
 
 **PRs are very welcome!**
 
+This is my first project using Flutter, I'm using it to learn about the framework (and the Dart language). I appreciate that the code is all over the place, so any help with that is very welcome!
+
 This project was developed using Flutter and Firebase. Most of the files should already be available when you clone the repository but you'll need to setup the Flutter SDK and the Firebase integration. If you need help on that, try following this [codelab](https://codelabs.developers.google.com/codelabs/friendlyeats-flutter#0) first.
 
 Steps to contribute:
