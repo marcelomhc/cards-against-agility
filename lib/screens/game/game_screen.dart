@@ -6,7 +6,7 @@ import 'package:cards_against_agility/bloc/game_repository.dart';
 import 'package:cards_against_agility/models/game.dart';
 import 'package:cards_against_agility/screens/game/components/exit_dialog.dart';
 import 'package:cards_against_agility/screens/game/components/hand.dart';
-import 'package:cards_against_agility/components/score_dialog.dart';
+import 'package:cards_against_agility/screens/game/components/score_dialog.dart';
 import 'package:cards_against_agility/screens/game/model/game_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
