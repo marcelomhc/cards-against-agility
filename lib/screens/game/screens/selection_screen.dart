@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/screens/game/components/card_grid.dart';
 import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/bloc/game_repository.dart';
@@ -51,13 +52,21 @@ class _SelectionScreenState extends State<SelectionScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            CardWidget(card: GameCard(text: _gameTable.blackCardText(), type: CardType.BLACK)),
-            CardGrid(cards: _cards, selectedCard: _selectedCard, onTap: updateSelected),
-            _voteButton(),
-          ]
+        child: Center(
+          child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                FractionallySizedBox(
+                  widthFactor: 0.4,
+                  child: CardWidget(card: GameCard(text: _gameTable.blackCardText(), type: CardType.BLACK)),
+                ),
+                CardGrid(cards: _cards, selectedCard: _selectedCard, onTap: updateSelected),
+                _voteButton(),
+              ]
+            ),
+          constraints: const BoxConstraints(maxWidth: maxWidth),
+          )
         )
       )
     );

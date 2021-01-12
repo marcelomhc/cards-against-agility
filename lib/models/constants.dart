@@ -6,6 +6,7 @@ final MaterialAccentColor secondaryColor = Colors.deepOrangeAccent;
 const int NUMBER_OF_ROUNDS = 7;
 const int MIN_PLAYERS = 3;
 const String APP_TITLE = 'Cards Against Agility';
+const double maxWidth = 500.0;
 
 final List<String> blackCards = <String>[
   'If there was a horror movie about this sprint, __ would be the ugly villain.',

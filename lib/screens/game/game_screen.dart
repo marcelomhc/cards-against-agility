@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/models/player.dart';
 import 'package:cards_against_agility/bloc/game_repository.dart';
@@ -63,22 +64,29 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: WillPopScope(
-                  onWillPop: _onWillPop,
-                  child: ListView(
-                    children: <Widget>[
-                      CardWidget(card: GameCard(text: _game.blackCardText(), type: CardType.BLACK)),
-                      Hand(_game),
-                      Padding(
-                        child: _revealCardsButton(),
-                        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+            child: Center(
+              child: Container(
+                child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: WillPopScope(
+                      onWillPop: _onWillPop,
+                      child: ListView(
+                        children: <Widget>[
+                          FractionallySizedBox(
+                            widthFactor: 0.4,
+                            child: CardWidget(card: GameCard(text: _game.blackCardText(), type: CardType.BLACK)),
+                          ),
+                          Hand(_game),
+                          Padding(
+                            child: _revealCardsButton(),
+                            padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                          ),
+                          ElevatedButton(onPressed: () {dialog(ScoreWidget(child: _game));}, child: const Text('Show Score'))
+                        ],
                       ),
-                      ElevatedButton(onPressed: () {dialog(ScoreWidget(child: _game));}, child: const Text('Show Score'))
-                    ],
-                  ),
-                ))));
+                    )),
+                constraints: const BoxConstraints(maxWidth: maxWidth),
+            ))));
   }
 
   Widget _revealCardsButton() {
