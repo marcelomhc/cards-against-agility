@@ -92,6 +92,10 @@ class GameTable {
     return status == GameStatus.FINISHED;
   }
 
+  bool hasPlayed() {
+    return playedCards.keys.contains(Player().id);
+  }
+
   bool allCardsPlayed() {
       return playedCards.length == players.length - 1;
   }

@@ -1,4 +1,5 @@
 import 'package:cards_against_agility/bloc/game_repository.dart';
+import 'package:cards_against_agility/screens/game/components/card_grid.dart';
 import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/models/player.dart';
@@ -37,23 +38,7 @@ class _HandState extends State<Hand> {
             child: Text('My cards', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),),
             padding: EdgeInsets.only(top: 10.0),
           ),
-          GridView.builder(
-            padding: const EdgeInsets.all(5),
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: _cards.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 10.0,
-              mainAxisSpacing: 10.0,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () { _selectCard(index); },
-                child: CardWidget(card: _cards[index])
-              );
-            },
-          ),
+          CardGrid(cards: _cards, selectedCard: _selectedCard, onTap: updateSelected),
           ElevatedButton(
             onPressed: _isAllowedToPlay(),
             child: Text(_getPlayCardText()),
@@ -79,18 +64,9 @@ class _HandState extends State<Hand> {
     return _gameTable.playedCards.keys.contains(Player().id);
   }
 
-  void _selectCard(int index) {
+  void updateSelected(GameCard s) {
     setState(() {
-      if (_selectedCard != _cards[index]) {
-        if (_selectedCard != null) {
-          _selectedCard.selected = false;
-        }
-        _selectedCard = _cards[index];
-      } else {
-        _selectedCard = null;
-      }
-
-      _cards[index].selected = !_cards[index].selected;
+      _selectedCard = s;
     });
   }
 

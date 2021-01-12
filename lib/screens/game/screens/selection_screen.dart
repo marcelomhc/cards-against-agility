@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cards_against_agility/screens/game/components/card_grid.dart';
 import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/bloc/game_repository.dart';
 import 'package:cards_against_agility/models/game.dart';
@@ -54,40 +55,12 @@ class _SelectionScreenState extends State<SelectionScreen> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             CardWidget(card: GameCard(text: _gameTable.blackCardText(), type: CardType.BLACK)),
-            _cardBuilder(),
+            CardGrid(cards: _cards, selectedCard: _selectedCard, onTap: updateSelected),
             _voteButton(),
           ]
         )
       )
     );
-  }
-
-  void _selectCard(int index) {
-    if (Player().isPlayer(_gameTable.host)) {
-      setState(() {
-        if (_selectedCard != _cards[index]) {
-          if (_selectedCard != null) {
-            _selectedCard.selected = false;
-          }
-          _selectedCard = _cards[index];
-        } else {
-          _selectedCard = null;
-        }
-
-        _cards[index].selected = !_cards[index].selected;
-      });
-    }
-  }
-
-  void _updateCards() {
-    _cards.clear();
-    for (final MapEntry<String, String> card in _gameTable.playedCards.entries) {
-      final GameCard gameCard = GameCard(text: card.value, owner: card.key);
-      _selectedCard != null ?
-      gameCard.selected = gameCard.text == _selectedCard.text
-          : gameCard.selected = false;
-      _cards.add(gameCard);
-    }
   }
 
   Widget _voteButton() {
@@ -104,6 +77,23 @@ class _SelectionScreenState extends State<SelectionScreen> {
     }
   }
 
+  void _updateCards() {
+    _cards.clear();
+    for (final MapEntry<String, String> card in _gameTable.playedCards.entries) {
+      final GameCard gameCard = GameCard(text: card.value, owner: card.key);
+      _selectedCard != null ?
+      gameCard.selected = gameCard.text == _selectedCard.text
+          : gameCard.selected = false;
+      _cards.add(gameCard);
+    }
+  }
+
+  void updateSelected(GameCard s) {
+    setState(() {
+      _selectedCard = s;
+    });
+  }
+
   Null Function() _voteOnCard() {
     if(_selectedCard == null) {
       return null;
@@ -115,24 +105,5 @@ class _SelectionScreenState extends State<SelectionScreen> {
 
       GameRepository().updateDocument(_gameTable);
     };
-  }
-
-  GridView _cardBuilder() {
-    return GridView.builder(
-      padding: const EdgeInsets.all(2),
-      shrinkWrap: true,
-      itemCount: _cards.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 1,
-        mainAxisSpacing: 1,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-            onTap: () { _selectCard(index); },
-            child: CardWidget(card: _cards[index])
-        );
-      },
-    );
   }
 }
