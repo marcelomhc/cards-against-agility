@@ -16,7 +16,7 @@ void main() {
       expect(table.playedCards, <String, String>{});
       expect(table.score, <String, int>{});
       expect(table.players, <String, String>{});
-      expect(table.voting, false);
+      expect(table.lastVoted, <String, String>{});
       expect(table.round, 0);
       expect(table.status, GameStatus.WAITING);
     });
@@ -25,9 +25,9 @@ void main() {
       const String host = 'host';
       const List<int> blackCard = <int>[2];
       final Map<String, String> playedCards = <String, String>{'Player1': 'Card1', 'Player2': 'Card2'};
+      final Map<String, String> lastVoted = <String, String>{'Player1': 'Card1'};
       final Map<String, int> score = <String, int>{'Player1': 3, 'Player2': 4};
       final Map<String, String> players = <String, String>{'Player1': 'Name1', 'Player2': 'Name2'};
-      const bool voting = true;
       const int round = 10;
       const GameStatus status = GameStatus.WAITING;
 
@@ -38,7 +38,7 @@ void main() {
       map[GameTable.PLAYED_CARDS] = playedCards;
       map[GameTable.SCORE_FIELD] = score;
       map[GameTable.PLAYERS_FIELD] = players;
-      map[GameTable.VOTING_FIELD] = voting;
+      map[GameTable.LAST_VOTED] = lastVoted;
       map[GameTable.ROUND_FIELD] = round;
       map[GameTable.STATUS_FIELD] = status.toString();
       final GameTable table = GameTable.fromMap(map);
@@ -49,7 +49,7 @@ void main() {
       expect(table.playedCards, playedCards);
       expect(table.score, score);
       expect(table.players, players);
-      expect(table.voting, voting);
+      expect(table.lastVoted, lastVoted);
       expect(table.round, round);
       expect(table.status, status);
     });
@@ -58,13 +58,13 @@ void main() {
       const String host = 'host';
       const List<int> blackCard = <int>[2];
       final Map<String, String> playedCards = <String, String>{'Player1': 'Card1', 'Player2': 'Card2'};
+      final Map<String, String> lastVoted = <String, String>{'Player1': 'Card1'};
       final Map<String, int> score = <String, int>{'Player1': 3, 'Player2': 4};
       final Map<String, String> players = <String, String>{'Player1': 'Name1', 'Player2': 'Name2'};
-      const bool voting = true;
       const int round = 10;
       const GameStatus status = GameStatus.STARTED;
 
-      final Map<String, dynamic> map = GameTable(id, host, blackCard, playedCards, score, players, voting, round, status).toMap();
+      final Map<String, dynamic> map = GameTable(id, host, blackCard, playedCards, score, players, lastVoted, round, status).toMap();
 
       expect(map[GameTable.ID_FIELD], id);
       expect(map[GameTable.HOST_FIELD], host);
@@ -72,7 +72,6 @@ void main() {
       expect(map[GameTable.PLAYED_CARDS], playedCards);
       expect(map[GameTable.SCORE_FIELD], score);
       expect(map[GameTable.PLAYERS_FIELD], players);
-      expect(map[GameTable.VOTING_FIELD], voting);
       expect(map[GameTable.ROUND_FIELD], round);
       expect(map[GameTable.STATUS_FIELD], status.toString());
     });
