@@ -53,7 +53,7 @@ class ResultsScreen extends StatelessWidget {
                 ),
                 Padding(
                 child: ElevatedButton(
-                    onPressed: () { Navigator.pop(context); },
+                    onPressed: () { Navigator.of(context).pop(); },
                     child: const Text('Exit'),
                   ),
                 padding: const EdgeInsets.only(left: 10.0)

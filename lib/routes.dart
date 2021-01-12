@@ -1,4 +1,6 @@
 import 'package:cards_against_agility/models/game.dart';
+import 'package:cards_against_agility/screens/selection/selection_screen.dart';
+import 'package:cards_against_agility/screens/score/round_score_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/game/game_screen.dart';
@@ -10,5 +12,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   '/': (BuildContext context) => HomeScreen(),
   '/lobby': (BuildContext context) => LobbyScreen(ModalRoute.of(context).settings.arguments as GameTable),
   '/table': (BuildContext context) => GameScreen(ModalRoute.of(context).settings.arguments as GameTable),
+  '/round': (BuildContext context) => SelectionScreen(ModalRoute.of(context).settings.arguments as GameTable),
+  '/winner': (BuildContext context) => RoundScoreScreen(child: ModalRoute.of(context).settings.arguments as GameTable),
   '/results': (BuildContext context) => ResultsScreen(ModalRoute.of(context).settings.arguments as GameTable)
 };

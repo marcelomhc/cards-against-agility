@@ -1,13 +1,12 @@
 import 'dart:async';
 
+import 'package:cards_against_agility/components/black_card.dart';
 import 'package:cards_against_agility/models/player.dart';
 import 'package:cards_against_agility/components/game_repository.dart';
 import 'package:cards_against_agility/models/game.dart';
-import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/screens/game/components/exit_dialog.dart';
 import 'package:cards_against_agility/screens/game/components/hand.dart';
-import 'package:cards_against_agility/screens/game/components/played_cards.dart';
-import 'package:cards_against_agility/screens/game/model/game_card.dart';
+import 'package:cards_against_agility/components/score_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -26,10 +25,20 @@ class _GameScreenState extends State<GameScreen> {
   GameTable _game;
 
   void _gameListener(Map<String, dynamic> map) {
+    _game = GameTable.fromMap(map);
+
+    if(_game.lastVoted.isNotEmpty) {
+      _game.lastVoted = <String, String>{};
+      GameRepository().updateDocument(_game);
+    }
+
     setState(() {
-      _game = GameTable.fromMap(map);
       if (_game.finished()) {
-        Navigator.of(context).pushReplacementNamed('/results', arguments: _game);
+        Navigator.of(context).popUntil((Route route) => route.isFirst);
+        Navigator.of(context).pushNamed('/results', arguments: _game);
+      } else if(_game.allCardsPlayed()) {
+        _game.lastVoted = <String, String>{};
+        Navigator.of(context).pushNamed('/round', arguments: _game);
       }
     });
   }
@@ -59,21 +68,54 @@ class _GameScreenState extends State<GameScreen> {
                   onWillPop: _onWillPop,
                   child: ListView(
                     children: <Widget>[
-                      Center(
-                        child: Container(
-                          padding: const EdgeInsets.all(3),
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: AspectRatio(
-                            aspectRatio: 0.9,
-                              child: GameCard(text: blackCards[_game.blackCard.last], type: CardType.BLACK).widget(),
-                          ),
-                        ),
-                      ),
-                      PlayedCards(_game),
+                      CardWidget(text: _game.blackCardText()),
                       Hand(_game),
+                      Padding(
+                        child: _revealCardsButton(),
+                        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      ),
+                      ElevatedButton(onPressed: () {dialog(ScoreWidget(child: _game));}, child: const Text('Show Score'))
                     ],
                   ),
                 ))));
+  }
+
+  Widget _revealCardsButton() {
+    if (_game.allCardsPlayed()) {
+      return ElevatedButton(
+        onPressed: () {Navigator.of(context).pushNamed('/round', arguments: _game);},
+        child: const Text('Reveal Played Cards'),
+      );
+    } else {
+      return OutlineButton(
+        onPressed: null,
+        child: Text('Waiting for more cards (Played: ' + _game.playedCards.length.toString() + '/' + (_game.players.length - 1).toString() + ')'),
+      );
+    }
+  }
+
+  void dialog(Widget content) {
+    showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+              opacity: a1.value,
+              child: AlertDialog(
+                shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                content: content,
+              ),
+            ),
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 200),
+        barrierDismissible: false,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) { return null;}
+    );
   }
 
   Future<bool> _onWillPop() {

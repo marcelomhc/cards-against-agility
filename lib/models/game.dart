@@ -12,6 +12,7 @@ class GameTable {
       this.playedCards,
       this.score,
       this.players,
+      this.lastVoted,
       this.voting,
       this.round,
       this.status
@@ -24,6 +25,7 @@ class GameTable {
       blackCard,
       <String, String>{},
       <String, int>{},
+      <String, String>{},
       <String, String>{},
       false,
       0,
@@ -39,6 +41,7 @@ class GameTable {
       Map<String,String>.from(map[PLAYED_CARDS] as Map<String, dynamic>),
       Map<String,int>.from(map[SCORE_FIELD] as Map<String, dynamic>),
       Map<String,String>.from(map[PLAYERS_FIELD] as Map<String, dynamic>),
+      Map<String,String>.from(map[LAST_VOTED] as Map<String, dynamic>),
       map[VOTING_FIELD] as bool,
       map[ROUND_FIELD] as int,
       GameStatus.values.firstWhere((GameStatus v) => v.toString() == (map[STATUS_FIELD] as String))
@@ -51,6 +54,7 @@ class GameTable {
   Map<String, String> playedCards;
   Map<String, int> score;
   Map<String, String> players;
+  Map<String, String> lastVoted;
   bool voting;
   int round;
   GameStatus status;
@@ -61,6 +65,7 @@ class GameTable {
   static const String PLAYED_CARDS = 'played_cards';
   static const String SCORE_FIELD = 'score';
   static const String PLAYERS_FIELD = 'players';
+  static const String LAST_VOTED = 'last_voted';
   static const String VOTING_FIELD = 'voting';
   static const String ROUND_FIELD = 'round';
   static const String STATUS_FIELD = 'status';
@@ -73,6 +78,7 @@ class GameTable {
       map[PLAYED_CARDS] = playedCards;
       map[SCORE_FIELD] = score;
       map[PLAYERS_FIELD] = players;
+      map[LAST_VOTED] = lastVoted;
       map[VOTING_FIELD] = voting;
       map[ROUND_FIELD] = round;
       map[STATUS_FIELD] = status.toString();
@@ -92,11 +98,15 @@ class GameTable {
     return status == GameStatus.FINISHED;
   }
 
-  void startVoting() {
-      voting = true;
+  bool allCardsPlayed() {
+      return playedCards.length == players.length - 1;
   }
 
-  void newRound(String roundWinner) {
+  String blackCardText() {
+      return blackCards[blackCard.last];
+  }
+
+  void newRound(String roundWinner, String cardText) {
     score[roundWinner] += 1;
     int nextBlack = blackCard.last;
 
@@ -109,9 +119,11 @@ class GameTable {
     } while(blackCard.contains(nextBlack));
     blackCard.add(nextBlack);
 
+    lastVoted = <String, String>{roundWinner: cardText};
     playedCards.clear();
     voting = false;
     final List<String> playerList = players.keys.toList();
+    playerList.sort();
     host = playerList.elementAt((playerList.indexOf(host)+1) % playerList.length);
     round += 1;
 
@@ -126,6 +138,7 @@ class GameTable {
       playedCards = <String, String>{};
       score = <String, int>{};
       players = <String, String>{};
+      lastVoted = <String, String>{};
       voting = false;
       round = 0;
       status = GameStatus.WAITING;

@@ -1,4 +1,5 @@
 import 'package:cards_against_agility/components/game_repository.dart';
+import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/models/player.dart';
 import 'package:cards_against_agility/models/game.dart';
 import 'package:cards_against_agility/screens/game/bloc/round.dart';
@@ -23,31 +24,41 @@ class _HandState extends State<Hand> {
   Widget build(BuildContext context) {
     _gameTable = widget._gameTable;
 
-    return Column(
-      children: <Widget>[
-        const Text('My cards'),
-        Container(
-            child: GridView.builder(
-          padding: const EdgeInsets.all(5),
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: _cards.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 10.0,
-            mainAxisSpacing: 10.0,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: primaryColor.withOpacity(0.5),
+      ),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      child: Column(
+        children: <Widget>[
+          const Padding(
+            child: Text('My cards', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),),
+            padding: EdgeInsets.only(top: 10.0),
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
+          GridView.builder(
+            padding: const EdgeInsets.all(5),
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: _cards.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
                 onTap: () { _selectCard(index); },
-                child: _cards[index].widget());
-          },
-        )),
-        ElevatedButton(
-          onPressed: _isAllowedToPlay(),
-          child: Text(_getPlayCardText()),
-        ),
-      ],
+                child: _cards[index].widget()
+              );
+            },
+          ),
+          ElevatedButton(
+            onPressed: _isAllowedToPlay(),
+            child: Text(_getPlayCardText()),
+          ),
+        ],
+      )
     );
   }
 
