@@ -77,6 +77,7 @@ Future<void> joinGameDialog(BuildContext context) async {
     },
   );
 }
+
 Future<void> changeNameDialog(BuildContext context) async {
   String newName;
 
@@ -111,8 +112,4 @@ Future<void> changeNameDialog(BuildContext context) async {
       );
     },
   );
-}
-
-void showInstructionsDialog() {
-
 }

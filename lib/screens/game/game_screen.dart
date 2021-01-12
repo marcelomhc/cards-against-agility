@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cards_against_agility/components/general_dialog.dart';
 import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/models/player.dart';
@@ -81,7 +82,7 @@ class _GameScreenState extends State<GameScreen> {
                             child: _revealCardsButton(),
                             padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                           ),
-                          ElevatedButton(onPressed: () {dialog(ScoreWidget(child: _game));}, child: const Text('Show Score'))
+                          ElevatedButton(onPressed: () {generalDialog(ScoreWidget(child: _game), context);}, child: const Text('Show Score'))
                         ],
                       ),
                     )),
@@ -101,30 +102,6 @@ class _GameScreenState extends State<GameScreen> {
         child: Text('Waiting for more cards (Played: ' + _game.playedCards.length.toString() + '/' + (_game.players.length - 1).toString() + ')'),
       );
     }
-  }
-
-  void dialog(Widget content) {
-    showGeneralDialog(
-        barrierColor: Colors.black.withOpacity(0.5),
-        transitionBuilder: (BuildContext context, Animation<double> a1, Animation<double> a2, Widget widget) {
-          return Transform.scale(
-            scale: a1.value,
-            child: Opacity(
-              opacity: a1.value,
-              child: AlertDialog(
-                shape: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
-                content: content,
-              ),
-            ),
-          );
-        },
-        transitionDuration: const Duration(milliseconds: 200),
-        barrierDismissible: false,
-        barrierLabel: '',
-        context: context,
-        pageBuilder: (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) { return null;}
-    );
   }
 
   Future<bool> _onWillPop() {
