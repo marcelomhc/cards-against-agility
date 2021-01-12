@@ -1,6 +1,6 @@
 import 'package:cards_against_agility/models/game.dart';
-import 'package:cards_against_agility/screens/selection/selection_screen.dart';
-import 'package:cards_against_agility/screens/score/round_score_screen.dart';
+import 'package:cards_against_agility/screens/game/screens/round_score_screen.dart';
+import 'package:cards_against_agility/screens/game/screens/selection_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/game/game_screen.dart';

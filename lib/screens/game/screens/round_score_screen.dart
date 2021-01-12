@@ -1,4 +1,4 @@
-import 'package:cards_against_agility/components/card_widget.dart';
+import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/models/game.dart';
 import 'package:cards_against_agility/components/score_dialog.dart';
 import 'package:cards_against_agility/screens/game/model/game_card.dart';

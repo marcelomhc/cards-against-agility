@@ -1,5 +1,5 @@
 import 'package:cards_against_agility/bloc/game_repository.dart';
-import 'package:cards_against_agility/components/card_widget.dart';
+import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/models/player.dart';
 import 'package:cards_against_agility/models/game.dart';
