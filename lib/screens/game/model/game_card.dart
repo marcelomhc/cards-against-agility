@@ -11,7 +11,7 @@ class GameCard {
   bool selected;
   CardType type;
 
-  Color backgroundColor() {
+  Color get backgroundColor {
     if(type == CardType.BLACK) {
       return Colors.black87;
     }
@@ -23,7 +23,7 @@ class GameCard {
     return Colors.white;
   }
 
-  Color textColor() {
+  Color get textColor {
     if(type == CardType.BLACK) {
       return Colors.white70;
     }
@@ -35,24 +35,4 @@ class GameCard {
     return Colors.black87;
   }
 
-  Card widget() {
-    return Card(
-      color: backgroundColor(),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-      ),
-      child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(10.0),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor(),
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-          ),
-        ),
-      ),
-    );
-  }
 }

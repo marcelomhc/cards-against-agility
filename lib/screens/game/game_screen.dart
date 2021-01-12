@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:cards_against_agility/components/black_card.dart';
+import 'package:cards_against_agility/components/card_widget.dart';
 import 'package:cards_against_agility/models/player.dart';
-import 'package:cards_against_agility/components/game_repository.dart';
+import 'package:cards_against_agility/bloc/game_repository.dart';
 import 'package:cards_against_agility/models/game.dart';
 import 'package:cards_against_agility/screens/game/components/exit_dialog.dart';
 import 'package:cards_against_agility/screens/game/components/hand.dart';
 import 'package:cards_against_agility/components/score_dialog.dart';
+import 'package:cards_against_agility/screens/game/model/game_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -68,7 +69,7 @@ class _GameScreenState extends State<GameScreen> {
                   onWillPop: _onWillPop,
                   child: ListView(
                     children: <Widget>[
-                      CardWidget(text: _game.blackCardText()),
+                      CardWidget(card: GameCard(text: _game.blackCardText(), type: CardType.BLACK)),
                       Hand(_game),
                       Padding(
                         child: _revealCardsButton(),
@@ -97,7 +98,7 @@ class _GameScreenState extends State<GameScreen> {
   void dialog(Widget content) {
     showGeneralDialog(
         barrierColor: Colors.black.withOpacity(0.5),
-        transitionBuilder: (context, a1, a2, widget) {
+        transitionBuilder: (BuildContext context, Animation<double> a1, Animation<double> a2, Widget widget) {
           return Transform.scale(
             scale: a1.value,
             child: Opacity(

@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:cards_against_agility/components/black_card.dart';
-import 'package:cards_against_agility/components/game_repository.dart';
+import 'package:cards_against_agility/components/card_widget.dart';
+import 'package:cards_against_agility/bloc/game_repository.dart';
 import 'package:cards_against_agility/models/game.dart';
 import 'package:cards_against_agility/models/player.dart';
-import 'package:cards_against_agility/components/score_dialog.dart';
 import 'package:cards_against_agility/screens/game/model/game_card.dart';
 import 'package:flutter/material.dart';
 
@@ -40,18 +39,6 @@ class _SelectionScreenState extends State<SelectionScreen> {
   }
 
   @override
-  void deactivate() {
-    listener.pause();
-    super.deactivate();
-  }
-
-  @override
-  void reassemble() {
-    listener.resume();
-    super.reassemble();
-  }
-
-  @override
   void dispose() {
     listener.cancel();
     super.dispose();
@@ -66,7 +53,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            CardWidget(text: _gameTable.blackCardText()),
+            CardWidget(card: GameCard(text: _gameTable.blackCardText(), type: CardType.BLACK)),
             _cardBuilder(),
             _voteButton(),
           ]
@@ -143,7 +130,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
             onTap: () { _selectCard(index); },
-            child: _cards[index].widget()
+            child: CardWidget(card: _cards[index])
         );
       },
     );

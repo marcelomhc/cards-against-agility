@@ -1,4 +1,5 @@
-import 'package:cards_against_agility/components/game_repository.dart';
+import 'package:cards_against_agility/bloc/game_repository.dart';
+import 'package:cards_against_agility/components/card_widget.dart';
 import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/models/player.dart';
 import 'package:cards_against_agility/models/game.dart';
@@ -49,7 +50,7 @@ class _HandState extends State<Hand> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () { _selectCard(index); },
-                child: _cards[index].widget()
+                child: CardWidget(card: _cards[index])
               );
             },
           ),
