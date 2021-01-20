@@ -47,7 +47,7 @@ void joinGame(BuildContext context, Map<String, dynamic> map) {
   if(map != null) {
     Navigator.pop(context);
     final GameTable game = GameTable.fromMap(map);
-    if (game.waitingPlayers()) {
+    if (game.waitingPlayers() || game.players.keys.contains(Player().id)) {
       game.addPlayer(Player());
       GameRepository().updateDocument(game);
       Navigator.pushNamed(context, '/lobby', arguments: game);
