@@ -32,7 +32,7 @@ class ScoreWidget extends StatelessWidget {
     String text = '\n';
     for(int i = 0; i < sortedPlayers.length; i++) {
       final int points = score[sortedPlayers[i]];
-      text += '#' + (i+1).toString() + ' ' + sortedPlayers[i] + ' - ' + points.toString() + '\n';
+      text += '#${i+1} ${sortedPlayers[i]} - $points\n';
     }
     return text;
   }
