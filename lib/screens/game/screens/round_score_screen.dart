@@ -1,6 +1,7 @@
 import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/models/game.dart';
+import 'package:cards_against_agility/screens/game/components/message_box.dart';
 import 'package:cards_against_agility/screens/game/components/score_dialog.dart';
 import 'package:cards_against_agility/screens/game/model/game_card.dart';
 import 'package:flutter/material.dart';
@@ -26,13 +27,13 @@ class RoundScoreScreen extends StatelessWidget {
                   ),
                   Padding(
                       padding: const EdgeInsets.all(10.0),
-                    child: Text(winner + ' is the winner of this round! +1 point!'),
+                    child: MessageBox(text: winner + ' is the winner of this round!\n+1 point!', color: PRIMARY_COLOR,),
                   ),
-                  CardWidget(card: GameCard(text: child.lastVoted.values.single)),
                   FractionallySizedBox(
                       widthFactor: 0.4,
-                      child: ScoreWidget(child: child),
+                      child: CardWidget(card: GameCard(text: child.lastVoted.values.single)),
                   ),
+                  ScoreWidget(child: child),
                 ]
               ),
             constraints: const BoxConstraints(maxWidth: maxWidth),
