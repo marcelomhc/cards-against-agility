@@ -6,6 +6,7 @@ import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/bloc/game_repository.dart';
 import 'package:cards_against_agility/models/game.dart';
 import 'package:cards_against_agility/models/player.dart';
+import 'package:cards_against_agility/screens/game/components/message_box.dart';
 import 'package:cards_against_agility/screens/game/model/game_card.dart';
 import 'package:flutter/material.dart';
 
@@ -57,10 +58,14 @@ class _SelectionScreenState extends State<SelectionScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Center(
+                    child: Text('Round ${_gameTable.round} of $NUMBER_OF_ROUNDS', style: const TextStyle(fontWeight: FontWeight.bold),)
+                ),
                 FractionallySizedBox(
                   widthFactor: 0.4,
                   child: CardWidget(card: GameCard(text: _gameTable.blackCardText(), type: CardType.BLACK)),
                 ),
+                MessageBox(text: 'All players selected their card!\nTime for the host to select the best one!', color: secondaryColor,),
                 CardGrid(cards: _cards, selectedCard: _selectedCard, onTap: updateSelected),
                 _voteButton(),
               ]
@@ -76,7 +81,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
     if (Player().isPlayer(_gameTable.host)) {
       return ElevatedButton(
         onPressed: _voteOnCard(),
-        child: const Text('Select the funniest one'),
+        child: const Text('Select'),
       );
     } else {
       return const OutlineButton(

@@ -8,6 +8,7 @@ import 'package:cards_against_agility/bloc/game_repository.dart';
 import 'package:cards_against_agility/models/game.dart';
 import 'package:cards_against_agility/screens/game/components/exit_dialog.dart';
 import 'package:cards_against_agility/screens/game/components/hand.dart';
+import 'package:cards_against_agility/screens/game/components/message_box.dart';
 import 'package:cards_against_agility/screens/game/components/score_dialog.dart';
 import 'package:cards_against_agility/screens/game/model/game_card.dart';
 import 'package:flutter/material.dart';
@@ -73,10 +74,14 @@ class _GameScreenState extends State<GameScreen> {
                       onWillPop: _onWillPop,
                       child: ListView(
                         children: <Widget>[
+                          Center(
+                            child: Text('Round ${_game.round} of $NUMBER_OF_ROUNDS', style: const TextStyle(fontWeight: FontWeight.bold),)
+                          ),
                           FractionallySizedBox(
                             widthFactor: 0.4,
                             child: CardWidget(card: GameCard(text: _game.blackCardText(), type: CardType.BLACK)),
                           ),
+                          MessageBox(text: 'The host for this round is:\n' + _hostName(), color: secondaryColor,),
                           Hand(_game),
                           Padding(
                             child: _revealCardsButton(),
@@ -102,6 +107,12 @@ class _GameScreenState extends State<GameScreen> {
         child: Text('Waiting for more cards (Played: ' + _game.playedCards.length.toString() + '/' + (_game.players.length - 1).toString() + ')'),
       );
     }
+  }
+
+  String _hostName() {
+    return Player().isPlayer(_game.host) ?
+    Player().username + ' (You)'
+        : _game.players[_game.host];
   }
 
   Future<bool> _onWillPop() {
