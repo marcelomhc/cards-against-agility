@@ -18,19 +18,22 @@ class RoundScoreScreen extends StatelessWidget {
           child: Center(
             child: Container(
               child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    FractionallySizedBox(
-                      widthFactor: 0.5,
-                      child: CardWidget(card: GameCard(text: child.blackCardText(), type: CardType.BLACK)),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.all(10.0),
-                      child: Text(winner + ' is the winner of this round! +1 point!'),
-                    ),
-                    CardWidget(card: GameCard(text: child.lastVoted.values.single)),
-                    ScoreWidget(child: child)
-                  ]
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  FractionallySizedBox(
+                    widthFactor: 0.5,
+                    child: CardWidget(card: GameCard(text: child.blackCardText(), type: CardType.BLACK)),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(10.0),
+                    child: Text(winner + ' is the winner of this round! +1 point!'),
+                  ),
+                  CardWidget(card: GameCard(text: child.lastVoted.values.single)),
+                  FractionallySizedBox(
+                      widthFactor: 0.4,
+                      child: ScoreWidget(child: child),
+                  ),
+                ]
               ),
             constraints: const BoxConstraints(maxWidth: maxWidth),
             )
