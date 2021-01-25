@@ -17,7 +17,7 @@ class GameCard {
     }
 
     if(selected) {
-      return primaryColor;
+      return PRIMARY_COLOR;
     }
 
     return Colors.white;

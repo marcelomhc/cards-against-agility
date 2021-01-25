@@ -81,7 +81,7 @@ class _GameScreenState extends State<GameScreen> {
                             widthFactor: 0.4,
                             child: CardWidget(card: GameCard(text: _game.blackCardText(), type: CardType.BLACK)),
                           ),
-                          MessageBox(text: 'The host for this round is:\n' + _hostName(), color: secondaryColor,),
+                          MessageBox(text: 'The host for this round is:\n' + _hostName(), color: SECONDARY_COLOR,),
                           Hand(_game),
                           Padding(
                             child: _revealCardsButton(),

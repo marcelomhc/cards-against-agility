@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-final MaterialColor primaryColor = Colors.blueGrey;
-final MaterialAccentColor secondaryColor = Colors.deepOrangeAccent;
-
+const MaterialColor PRIMARY_COLOR = Colors.blueGrey;
+const MaterialAccentColor SECONDARY_COLOR = Colors.deepOrangeAccent;
 const int NUMBER_OF_ROUNDS = 7;
 const int MIN_PLAYERS = 3;
 const String APP_TITLE = 'Cards Against Agility';

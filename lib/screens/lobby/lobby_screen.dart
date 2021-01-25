@@ -61,10 +61,10 @@ class _LobbyScreenState extends State<LobbyScreen> {
               'Waiting for players...',
               style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
             ),
-            Icon(
+            const Icon(
               Icons.hourglass_bottom_outlined,
               size: 130.0,
-              color: secondaryColor,
+              color: SECONDARY_COLOR,
             ),
             const Text(
               'To invite players use:',

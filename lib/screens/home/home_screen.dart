@@ -35,10 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(
+            const Icon(
               Icons.person,
               size: 130.0,
-              color: secondaryColor,
+              color: SECONDARY_COLOR,
             ),
             Text(
               Player().username,

@@ -18,7 +18,7 @@ class CardsAgainstAgility extends StatelessWidget {
     return MaterialApp(
       title: 'Cards Against Agility',
       theme: ThemeData(
-        primarySwatch: primaryColor,
+        primarySwatch: PRIMARY_COLOR,
       ),
       initialRoute: '/',
       routes: routes,

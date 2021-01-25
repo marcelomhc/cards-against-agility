@@ -1,6 +1,5 @@
 import 'package:cards_against_agility/bloc/game_repository.dart';
 import 'package:cards_against_agility/screens/game/components/card_grid.dart';
-import 'package:cards_against_agility/screens/game/components/card_widget.dart';
 import 'package:cards_against_agility/models/constants.dart';
 import 'package:cards_against_agility/models/player.dart';
 import 'package:cards_against_agility/models/game.dart';
@@ -29,7 +28,7 @@ class _HandState extends State<Hand> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: primaryColor.withOpacity(0.5),
+        color: PRIMARY_COLOR.withOpacity(0.5),
       ),
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Column(

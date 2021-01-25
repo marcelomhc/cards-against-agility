@@ -65,7 +65,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   widthFactor: 0.4,
                   child: CardWidget(card: GameCard(text: _gameTable.blackCardText(), type: CardType.BLACK)),
                 ),
-                MessageBox(text: 'All players selected their card!\nTime for the host to select the best one!', color: secondaryColor,),
+                const MessageBox(text: 'All players selected their card!\nTime for the host to select the best one!', color: SECONDARY_COLOR,),
                 CardGrid(cards: _cards, selectedCard: _selectedCard, onTap: updateSelected),
                 _voteButton(),
               ]

@@ -13,7 +13,7 @@ Future<int> confirmExitDialog(BuildContext context) async {
             margin: const EdgeInsets.all(0.0),
             padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
             height: 100.0,
-            color: primaryColor,
+            color: PRIMARY_COLOR,
             child: Column(
               children: <Widget>[
                 Container(
