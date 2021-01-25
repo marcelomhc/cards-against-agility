@@ -10,7 +10,7 @@ class About extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
         children: <Widget>[
           const Text('About', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-          const Text('Version 0.1.0\n', style: TextStyle(fontStyle: FontStyle.italic, fontSize: 10.0), textAlign: TextAlign.end,),
+          const Text('Version 0.2.1\n', style: TextStyle(fontStyle: FontStyle.italic, fontSize: 10.0), textAlign: TextAlign.end,),
           RichText(
             text: TextSpan(
               text: 'Thanks for playing!\n\n',
