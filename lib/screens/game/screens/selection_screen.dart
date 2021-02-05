@@ -55,8 +55,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
       body: SafeArea(
         child: Center(
           child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            child: ListView(
               children: <Widget>[
                 Center(
                     child: Text('Round ${_gameTable.round} of $NUMBER_OF_ROUNDS', style: const TextStyle(fontWeight: FontWeight.bold),)

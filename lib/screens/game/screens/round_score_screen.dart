@@ -18,8 +18,7 @@ class RoundScoreScreen extends StatelessWidget {
         body: SafeArea(
           child: Center(
             child: Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+              child: ListView(
                 children: <Widget>[
                   FractionallySizedBox(
                     widthFactor: 0.5,
